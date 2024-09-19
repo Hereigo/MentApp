@@ -7,3 +7,5 @@
 3. Clear project and save empty solution. 
 4. Create empty structure for solution.
 5. Create Data.EF models.
+6. Adjust connect to SqliteDB.
+7. ...
