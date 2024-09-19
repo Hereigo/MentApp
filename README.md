@@ -1,4 +1,4 @@
-# MentApp
+﻿# MentApp
 
 2024-09-19
 
@@ -6,5 +6,4 @@
 2. Add dependencies.
 3. Clear project and save empty solution. 
 4. Create empty structure for solution.
-5. ...
-
+5. Create Data.EF models.
