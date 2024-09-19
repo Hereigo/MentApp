@@ -8,11 +8,12 @@ public class User : IdentityUser
     [Key]
     public Guid Id { get; set; }
 
-    [Required]
     [StringLength(100)]
-    public string Name { get; set; }
+    public string FirstName { get; set; }
 
-    [Required]
+    [StringLength(100)]
+    public string LastName { get; set; }
+
     [EmailAddress]
     [StringLength(256)]
     public string Email { get; set; }

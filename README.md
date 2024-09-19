@@ -8,4 +8,4 @@
 4. Create empty structure for solution.
 5. Create Data.EF models.
 6. Adjust connect to SqliteDB.
-7. ...
+7. Add JwtToken authentification.

@@ -5,7 +5,7 @@ using Task = Data.EF.Models.Task;
 
 namespace Data.EF
 {
-    public class ToDoListDbContext : IdentityDbContext
+    public class ToDoListDbContext : IdentityDbContext<User>
     {
         public ToDoListDbContext(DbContextOptions<ToDoListDbContext> options)
             : base(options)
