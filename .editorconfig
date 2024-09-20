@@ -1,0 +1,11 @@
+﻿[*.cs]
+
+# LR0002: Prefix is incorrect
+dotnet_diagnostic.LR0002.severity = silent
+
+# LR0007: The method parameter is not in the correct format
+dotnet_diagnostic.LR0007.severity = silent
+
+# LR0008: Summary is missing
+dotnet_diagnostic.LR0008.severity = silent
+
