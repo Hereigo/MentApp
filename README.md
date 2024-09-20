@@ -9,3 +9,8 @@
 5. Create Data.EF models.
 6. Adjust connect to SqliteDB.
 7. Add JwtToken authentification.
+
+2024-09-20
+
+8. Add migration and create appdata.db
+

@@ -8,6 +8,7 @@ public class User : IdentityUser
     [Key]
     public Guid Id { get; set; }
 
+    [Required]
     [StringLength(100)]
     public string FirstName { get; set; }
 
@@ -18,5 +19,5 @@ public class User : IdentityUser
     [StringLength(256)]
     public string Email { get; set; }
 
-    public IEnumerable<Task> Tasks { get; set; }
+    public ICollection<Task> Tasks { get; set; }
 }

@@ -17,13 +17,10 @@ namespace Data.EF.Models
         [Required]
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        [Required]
         public bool IsCompleted { get; set; } = false;
 
-        [Required]
         public Category Category { get; set; }
 
-        [Required]
         public User User { get; set; }
     }
 }
