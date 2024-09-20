@@ -45,7 +45,6 @@ namespace WebApi.Controllers
 
             if (result.Succeeded)
             {
-                // Generate JWT token
                 var token = GenerateJwtToken(model.Email);
                 return Ok(new { Token = token });
             }
