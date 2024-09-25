@@ -9,7 +9,7 @@ builder.Services.AddDbContext<ToDoListDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("ToDoListDb"));
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(); // Add Identity services
 
 // By default, both cookies and proprietary tokens are activated.
 // Cookies and tokens are issued at login if the useCookies query string parameter in the login endpoint is true.
@@ -23,8 +23,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapIdentityApi<IdentityUser>();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -32,11 +30,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
+
+app.MapIdentityApi<IdentityUser>(); // Map Identity routes
 
 app.MapSwagger().RequireAuthorization();
 // app.MapSwagger().RequireAuthorization("Admin");

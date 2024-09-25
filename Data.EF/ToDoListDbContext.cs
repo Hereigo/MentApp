@@ -1,11 +1,12 @@
 ﻿using Data.EF.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Task = Data.EF.Models.Task;
 
 namespace Data.EF
 {
-    public class ToDoListDbContext : IdentityDbContext<User>
+    public class ToDoListDbContext : IdentityDbContext<IdentityUser>
     {
         public ToDoListDbContext(DbContextOptions<ToDoListDbContext> options)
             : base(options)
