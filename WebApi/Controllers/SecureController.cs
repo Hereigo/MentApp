@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Data.EF.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,15 +10,19 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class SecureController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IConfiguration _configuration;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public SecureController(UserManager<IdentityUser> userManager)
+        public SecureController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
+            _configuration = configuration;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
             return Ok("This is a protected resource.");
         }
