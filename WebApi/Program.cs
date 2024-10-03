@@ -41,14 +41,14 @@ builder.Services.AddDbContext<ToDoListDbContext>(options =>
 // By default, both cookies and proprietary tokens are activated.
 // Cookies and tokens are issued at login if the useCookies query string parameter in the login endpoint is true.
 builder.Services
-    .AddIdentityApiEndpoints<User>()
-    //.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<ToDoListDbContext>()
+    .AddIdentityApiEndpoints<User>() // PreConfigured Roles
+    //.AddIdentityCore<User>()       // More configurable
+    .AddEntityFrameworkStores<ToDoListDbContext>() // Special for Identity
+    .AddApiEndpoints();                            // Special for Identity
     //.AddDefaultTokenProviders();
-    .AddApiEndpoints();
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
+// builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
