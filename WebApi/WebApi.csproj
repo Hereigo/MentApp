@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\AuthController.cs" />
-    <Compile Remove="Identity\LoginModel.cs" />
-    <Compile Remove="Identity\RegisterModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="README.md" />
   </ItemGroup>
 
@@ -39,10 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data.EF\Data.EF.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Identity\" />
   </ItemGroup>
 
 </Project>

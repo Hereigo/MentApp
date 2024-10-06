@@ -8,7 +8,6 @@ const string BEARER = "Bearer";
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
     opt.AddSecurityDefinition(BEARER, new OpenApiSecurityScheme
@@ -35,22 +34,22 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization(); // Add Identity services
 builder.Services.AddDbContext<ToDoListDbContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("ToDoListDb"));
 });
+
 // By default, both cookies and proprietary tokens are activated.
 // Cookies and tokens are issued at login if the useCookies query string parameter in the login endpoint is true.
 builder.Services
-    .AddIdentityApiEndpoints<User>() // PreConfigured Roles
-    //.AddIdentityCore<User>()       // More configurable
+  .AddIdentityApiEndpoints<User>() // PreConfigured Roles
+//  .AddIdentityCore<User>()         // More configurable
     .AddEntityFrameworkStores<ToDoListDbContext>()
     .AddApiEndpoints();
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer(); // ?????
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

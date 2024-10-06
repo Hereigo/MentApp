@@ -8,7 +8,6 @@ public class User : IdentityUser
     [Key]
     public Guid Id { get; set; }
 
-    [Required]
     [StringLength(100)]
     public string FirstName { get; set; }
 

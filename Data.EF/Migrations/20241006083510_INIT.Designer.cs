@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.EF.Migrations
 {
     [DbContext(typeof(ToDoListDbContext))]
-    [Migration("20241001140025_Initial")]
-    partial class Initial
+    [Migration("20241006083510_INIT")]
+    partial class INIT
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
