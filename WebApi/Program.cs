@@ -8,6 +8,9 @@ const string BEARER = "Bearer";
 
 var builder = WebApplication.CreateBuilder(args);
 
+// By default, both cookies and proprietary tokens are activated.
+// Cookies and tokens are issued at login if the useCookies query string parameter in the login endpoint is true.
+
 builder.Services.AddSwaggerGen(opt =>
 {
     opt.AddSecurityDefinition(BEARER, new OpenApiSecurityScheme
@@ -36,20 +39,22 @@ builder.Services.AddSwaggerGen(opt =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization(); // Add Identity services
-builder.Services.AddDbContext<ToDoListDbContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("ToDoListDb"));
-});
-
-// By default, both cookies and proprietary tokens are activated.
-// Cookies and tokens are issued at login if the useCookies query string parameter in the login endpoint is true.
-builder.Services
-  .AddIdentityApiEndpoints<User>() // PreConfigured Roles
-//  .AddIdentityCore<User>()         // More configurable
-    .AddEntityFrameworkStores<ToDoListDbContext>()
-    .AddApiEndpoints();
-
+builder.Services.AddDbContext<ToDoListDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ToDoListDb")));
 builder.Services.AddControllers();
+builder.Services.AddIdentityApiEndpoints<User>(); // Include PreConfigured Roles
+builder.Services.AddIdentityCore<User>(options =>
+{
+    options.Lockout.AllowedForNewUsers = true;
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+})
+.AddEntityFrameworkStores<ToDoListDbContext>()
+.AddApiEndpoints();
 
 var app = builder.Build();
 
@@ -58,16 +63,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.MapIdentityApi<User>(); // Map Identity routes
-// app.MapGroup("/identity").MapIdentityApi<IdentityUser>();
-
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+//app.UseEndpoints(endpoints => endpoints.MapControllers());
 
+//app.MapIdentityApi<User>(); // Map Identity routes
+app.MapGroup("/auth").MapIdentityApi<User>();
 app.MapControllers();
-
 app.MapSwagger().RequireAuthorization();
 
 app.Run();
