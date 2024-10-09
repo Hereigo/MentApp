@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.EF.Migrations
 {
     [DbContext(typeof(ToDoListDbContext))]
-    [Migration("20241006083510_INIT")]
-    partial class INIT
+    [Migration("20241009144806_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
             modelBuilder.Entity("Data.EF.Models.Category", b =>
                 {

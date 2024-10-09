@@ -8,13 +8,13 @@ namespace WebApi.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class SecureController : ControllerBase
+    public class TodoListController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
 
-        public SecureController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public TodoListController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _configuration = configuration;
             _userManager = userManager;

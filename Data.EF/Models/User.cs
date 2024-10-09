@@ -6,7 +6,7 @@ namespace Data.EF.Models;
 public class User : IdentityUser
 {
     [Key]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     [StringLength(100)]
     public string FirstName { get; set; }
