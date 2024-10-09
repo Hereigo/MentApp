@@ -199,6 +199,21 @@ namespace Data.EF.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf7", "02174cf0–9412–4cfe-afbf-59f706d72cf7", "SuperAdmin", "SUPERADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "783a5f97-ff97-4c35-97f2-df3dbda9d63b", "User", null, true, "Admin", "SuperAdmin", false, null, null, "ADMIN@AA.AA", "AQAAAAIAAYagAAAAEJv1vtf+JPi89Tdm9YQ7lqouItkiJpYFLEFgBr69jpCDcxV40Qp1XCM09jT/LFR15A==", null, false, "a69818b8-1aec-4c63-b62b-c405980734bf", false, "admin@aa.aa" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf7", "02174cf0–9412–4cfe-afbf-59f706d72cf6" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

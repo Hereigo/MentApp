@@ -306,15 +306,15 @@ namespace Data.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "22e4598c-d509-4d72-9cb4-dce110115dcf",
+                            Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "105b7382-37a9-4ce3-bc47-b4294cb9261c",
+                            ConcurrencyStamp = "783a5f97-ff97-4c35-97f2-df3dbda9d63b",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@AA.AA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFjeoZ+7zzT4nrpqy4byeBQIk7qB+FEYTzTyH+E0ucCPGeF07blFFrz7MKpNiF5OrA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJv1vtf+JPi89Tdm9YQ7lqouItkiJpYFLEFgBr69jpCDcxV40Qp1XCM09jT/LFR15A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "495f408f-c462-41ec-9c8b-35a6e7851fcc",
+                            SecurityStamp = "a69818b8-1aec-4c63-b62b-c405980734bf",
                             TwoFactorEnabled = false,
                             UserName = "admin@aa.aa",
                             FirstName = "Admin",

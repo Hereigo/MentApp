@@ -5,9 +5,6 @@ namespace Data.EF.Models;
 
 public class User : IdentityUser
 {
-    [Key]
-    public string Id { get; set; }
-
     [StringLength(100)]
     public string FirstName { get; set; }
 

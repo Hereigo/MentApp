@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.EF.Migrations
 {
     [DbContext(typeof(ToDoListDbContext))]
-    [Migration("20241009144806_Initial")]
+    [Migration("20241009175435_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -97,6 +97,15 @@ namespace Data.EF.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "02174cf0–9412–4cfe-afbf-59f706d72cf7",
+                            ConcurrencyStamp = "02174cf0–9412–4cfe-afbf-59f706d72cf7",
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -253,6 +262,13 @@ namespace Data.EF.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
+                            RoleId = "02174cf0–9412–4cfe-afbf-59f706d72cf7"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -289,6 +305,24 @@ namespace Data.EF.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "783a5f97-ff97-4c35-97f2-df3dbda9d63b",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN@AA.AA",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJv1vtf+JPi89Tdm9YQ7lqouItkiJpYFLEFgBr69jpCDcxV40Qp1XCM09jT/LFR15A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a69818b8-1aec-4c63-b62b-c405980734bf",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@aa.aa",
+                            FirstName = "Admin",
+                            LastName = "SuperAdmin"
+                        });
                 });
 
             modelBuilder.Entity("Data.EF.Models.Task", b =>
