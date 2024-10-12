@@ -2,7 +2,7 @@
 
 namespace Data.EF.Models
 {
-    public class Task
+    public class ATask
     {
         [Key]
         public Guid Id { get; set; }

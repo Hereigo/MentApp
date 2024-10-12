@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Task = Data.EF.Models.Task;
+using ATask = Data.EF.Models.ATask;
 
 namespace Data.EF
 {
@@ -14,7 +14,7 @@ namespace Data.EF
         }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<ATask> Tasks { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

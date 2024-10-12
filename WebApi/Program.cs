@@ -1,8 +1,10 @@
 using Data.EF;
 using Data.EF.Models;
+using Data.EF.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Services.MediatR;
 
 const string BEARER = "Bearer";
 
@@ -56,6 +58,10 @@ builder.Services.AddIdentityCore<User>(options =>
 .AddEntityFrameworkStores<ToDoListDbContext>()
 .AddApiEndpoints();
 
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+// builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatRDependencyHandler).Assembly));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -74,5 +80,9 @@ app.UseAuthorization();
 app.MapGroup("/auth").MapIdentityApi<User>();
 app.MapControllers();
 app.MapSwagger().RequireAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
