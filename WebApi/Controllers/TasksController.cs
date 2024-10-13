@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("customerId")]
-        public async Task<ATask?> GetCustomerAsync(int taskId)
+        public async Task<ATask?> GetTaskAsync(int taskId)
         {
             var taskDetails = await _mediator.Send(new GetTaskRequest() { TaskId = taskId });
 
@@ -41,10 +41,38 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateCustomerAsync(ATask task)
+        public async Task<int> CreateTaskAsync(ATask task)
         {
             var taskId = await _mediator.Send(new CreateTaskRequest() { Task = task });
             return taskId;
         }
+
+        [HttpPost("Test")]
+        public async Task<int> CreateTaskSimpleAsync(ATaskSimpleDto taskDto)
+        {
+            var currentUser = _userManager.GetUserAsync(this.User);
+
+            if (currentUser != null)
+            {
+                var task = new ATask
+                {
+                    CreatedDate = DateTime.UtcNow,
+                    Description = taskDto.Description,
+                    Title = taskDto.Title,
+                    User = currentUser.Result
+                };
+
+                var taskId = await _mediator.Send(new CreateTaskRequest() { Task = task });
+
+                return taskId;
+            }
+            return 0;
+        }
+    }
+
+    public class ATaskSimpleDto
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }
