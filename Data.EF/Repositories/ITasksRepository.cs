@@ -4,6 +4,13 @@ namespace Data.EF.Repositories;
 
 public interface ITasksRepository
 {
-    Task<int> CreateTask(ATask task);
-    Task<ATask?> GetTask(int taskId);
+    Task CreateTaskAsync(ATask task);
+
+    Task DeleteTaskAsync(int id);
+
+    Task UpdateTaskAsync(ATask task);
+
+    Task<ATask?> GetTaskByIdAsync(int taskId);
+
+    Task<IEnumerable<ATask>> GetAllTasksAsync();
 }

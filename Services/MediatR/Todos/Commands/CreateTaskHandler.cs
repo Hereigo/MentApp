@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Services.MediatR.Todos.Commands
 {
-    internal class CreateTaskHandler: IRequestHandler<CreateTaskRequest, int>
+    internal class CreateTaskHandler: IRequestHandler<CreateTaskRequest>
     {
         //Inject Validators 
         private readonly ITasksRepository _tasksRepository;
@@ -13,10 +13,10 @@ namespace Services.MediatR.Todos.Commands
             _tasksRepository = tasksRepository;
         }
 
-        public async Task<int> Handle(CreateTaskRequest request, CancellationToken cancellationToken)
+        public async Task Handle(CreateTaskRequest request, CancellationToken cancellationToken)
         {
             // First validate the request
-            return await _tasksRepository.CreateTask(request.Task);
+            await _tasksRepository.CreateTaskAsync(request.Task);
         }
     }
 }

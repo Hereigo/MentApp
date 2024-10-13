@@ -41,14 +41,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateTaskAsync(ATask task)
+        public async Task CreateTaskAsync(ATask task)
         {
-            var taskId = await _mediator.Send(new CreateTaskRequest() { Task = task });
-            return taskId;
+            await _mediator.Send(new CreateTaskRequest() { Task = task });
         }
 
         [HttpPost("Test")]
-        public async Task<int> CreateTaskSimpleAsync(ATaskSimpleDto taskDto)
+        public async Task CreateTaskSimpleAsync(ATaskSimpleDto taskDto)
         {
             var currentUser = _userManager.GetUserAsync(this.User);
 
@@ -62,11 +61,8 @@ namespace WebApi.Controllers
                     User = currentUser.Result
                 };
 
-                var taskId = await _mediator.Send(new CreateTaskRequest() { Task = task });
-
-                return taskId;
+                await _mediator.Send(new CreateTaskRequest() { Task = task });
             }
-            return 0;
         }
     }
 

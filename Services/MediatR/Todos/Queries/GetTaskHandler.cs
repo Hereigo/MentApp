@@ -15,7 +15,7 @@ namespace Services.MediatR.Todos.Queries
 
         public async Task<ATask?> Handle(GetTaskRequest request, CancellationToken cancellationToken)
         {
-            return await _tasksRepository.GetTask(request.TaskId);
+            return await _tasksRepository.GetTaskByIdAsync(request.TaskId);
         }
     }
 }

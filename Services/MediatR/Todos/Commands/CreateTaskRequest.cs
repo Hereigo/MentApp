@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Services.MediatR.Todos.Commands
 {
-    public class CreateTaskRequest : IRequest<int>
+    public class CreateTaskRequest : IRequest
     {
         public ATask Task { get; set; }
     }
