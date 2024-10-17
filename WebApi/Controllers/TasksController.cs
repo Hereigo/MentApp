@@ -1,4 +1,5 @@
-﻿using Data.EF.Models;
+﻿using Contracts.Categories;
+using Data.EF.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -33,11 +34,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("customerId")]
-        public async Task<ATask?> GetTaskAsync(int taskId)
+        public async Task<IActionResult> GetTaskAsync(int taskId)
         {
             var taskDetails = await _mediator.Send(new GetTaskRequest() { TaskId = taskId });
 
-            return taskDetails;
+            return taskDetails as IActionResult; // ???
         }
 
         [HttpPost]
@@ -64,11 +65,5 @@ namespace WebApi.Controllers
                 await _mediator.Send(new CreateTaskRequest() { Task = task });
             }
         }
-    }
-
-    public class ATaskSimpleDto
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
     }
 }
