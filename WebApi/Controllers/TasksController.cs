@@ -38,7 +38,7 @@ namespace WebApi.Controllers
         {
             var taskDetails = await _mediator.Send(new GetTaskRequest() { TaskId = taskId }, cancellationToken);
 
-            return taskDetails as IActionResult; // ???
+            return taskDetails == null ? NotFound() : Ok(taskDetails);
         }
 
         [HttpPost]
