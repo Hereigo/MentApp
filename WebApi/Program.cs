@@ -1,13 +1,10 @@
-using System.Collections.Generic;
-using System.Data;
-using Data.EF;
+using Data.EF.Database;
 using Data.EF.Models;
 using Data.EF.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Services.MediatR;
-using SQLitePCL;
 
 const string BEARER = "Bearer";
 
@@ -62,7 +59,6 @@ builder.Services.AddIdentityCore<User>(options =>
 .AddApiEndpoints();
 
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
-// builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatRDependencyHandler).Assembly));
 
 var app = builder.Build();
@@ -89,14 +85,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-
-// fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
-//       Failed executing DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime), @p3='?' (Size = 6), @p4='?' (DbType = Boolean), @p5='?' (Size = 6), @p6='?'], CommandType='Text', CommandTimeout='30']
-//       INSERT INTO "Tasks" ("Id", "CategoryId", "CreatedDate", "Description", "IsCompleted", "Title", "UserId")
-//       VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
-// fail: Microsoft.EntityFrameworkCore.Update[10000]
-//       An exception occurred in the database while saving changes for context type 'Data.EF.ToDoListDbContext'.
-//       Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
-//        ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
-//          at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)

@@ -1,10 +1,9 @@
 ﻿using Contracts.Queries;
-using Data.EF.Models;
 using Data.EF.Repositories;
 using Domain.Tasks;
 using MediatR;
 
-namespace Services.MediatR.Todos.Queries
+namespace Services.MediatR.Queries
 {
     public class GetTaskHandler : IRequestHandler<GetTaskQuery, TaskDetails?>
     {

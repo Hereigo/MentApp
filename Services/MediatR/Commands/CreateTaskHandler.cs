@@ -2,9 +2,9 @@
 using Data.EF.Repositories;
 using MediatR;
 
-namespace Services.MediatR.Todos.Commands
+namespace Services.MediatR.Commands
 {
-    internal class CreateTaskHandler: IRequestHandler<CreateTaskRequest>
+    internal class CreateTaskHandler : IRequestHandler<CreateTaskRequest>
     {
         //Inject Validators 
         private readonly ITasksRepository _tasksRepository;

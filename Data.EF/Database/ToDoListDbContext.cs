@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.EF
+namespace Data.EF.Database
 {
     public class ToDoListDbContext : IdentityDbContext<IdentityUser>
     {

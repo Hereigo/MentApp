@@ -7,8 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Services.MediatR.Todos.Commands;
-using Services.MediatR.Todos.Queries;
 
 namespace WebApi.Controllers
 {
@@ -66,6 +64,9 @@ namespace WebApi.Controllers
                     Title = taskDto.Title,
                     UserId = currentUser.Id,
                     // CategoryId = 
+
+                    // TODO :
+                    // Continue to implement ..............
                 };
 
                 await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);
