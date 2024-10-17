@@ -1,5 +1,8 @@
 ﻿using Contracts.Categories;
+using Contracts.Commands;
+using Contracts.Queries;
 using Data.EF.Models;
+using Domain.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -36,13 +39,13 @@ namespace WebApi.Controllers
         [HttpGet("customerId")]
         public async Task<IActionResult> GetTaskAsync(int taskId, CancellationToken cancellationToken)
         {
-            var taskDetails = await _mediator.Send(new GetTaskRequest() { TaskId = taskId }, cancellationToken);
+            var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = taskId }, cancellationToken);
 
             return taskDetails == null ? NotFound() : Ok(taskDetails);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTaskAsync(ATask task, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateTaskAsync(TaskDetails task, CancellationToken cancellationToken)
         {
             await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);
 
@@ -56,12 +59,13 @@ namespace WebApi.Controllers
 
             if (currentUser != null)
             {
-                var task = new ATask
+                var task = new TaskDetails
                 {
-                    CreatedDate = DateTime.UtcNow,
+                    //CreatedDate = DateTime.UtcNow,
                     Description = taskDto.Description,
                     Title = taskDto.Title,
-                    User = currentUser
+                    UserId = currentUser.Id,
+                    // CategoryId = 
                 };
 
                 await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);

@@ -23,7 +23,7 @@ namespace Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
@@ -316,13 +316,13 @@ namespace Data.EF.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49a35d4f-f29a-45de-8c55-f2c30aab9f6e",
+                            ConcurrencyStamp = "b8ee83c9-590e-44ac-914e-ef58d729ea41",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@AA.AA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA5d5ltTD5A8RNedxB+FeKfkGztb35OOcfgzzbUL38GlgmnDD8Na9AzARkpMrdQyWg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOyr/kimPGekgUhhzz+O+0oPjk+fQL0SE27OM8YE4FyDe6XL4+d8nVYJgzTC+b3W3A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2cececb8-6c33-4465-ac07-ab5e2d50098e",
+                            SecurityStamp = "067a697d-c084-4af7-a083-8c8ac7e03f73",
                             TwoFactorEnabled = false,
                             UserName = "admin@aa.aa",
                             FirstName = "Admin",
@@ -334,9 +334,7 @@ namespace Data.EF.Migrations
                 {
                     b.HasOne("Data.EF.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("Data.EF.Models.User", "User")
                         .WithMany("Tasks")

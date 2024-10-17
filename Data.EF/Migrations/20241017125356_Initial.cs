@@ -182,7 +182,7 @@ namespace Data.EF.Migrations
                     Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -198,8 +198,7 @@ namespace Data.EF.Migrations
                         name: "FK_Tasks_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -210,7 +209,7 @@ namespace Data.EF.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "49a35d4f-f29a-45de-8c55-f2c30aab9f6e", "User", null, true, "Admin", "SuperAdmin", false, null, null, "ADMIN@AA.AA", "AQAAAAIAAYagAAAAEA5d5ltTD5A8RNedxB+FeKfkGztb35OOcfgzzbUL38GlgmnDD8Na9AzARkpMrdQyWg==", null, false, "2cececb8-6c33-4465-ac07-ab5e2d50098e", false, "admin@aa.aa" });
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "b8ee83c9-590e-44ac-914e-ef58d729ea41", "User", null, true, "Admin", "SuperAdmin", false, null, null, "ADMIN@AA.AA", "AQAAAAIAAYagAAAAEOyr/kimPGekgUhhzz+O+0oPjk+fQL0SE27OM8YE4FyDe6XL4+d8nVYJgzTC+b3W3A==", null, false, "067a697d-c084-4af7-a083-8c8ac7e03f73", false, "admin@aa.aa" });
 
             migrationBuilder.InsertData(
                 table: "Categories",

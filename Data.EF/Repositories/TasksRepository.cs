@@ -1,8 +1,36 @@
 ﻿using Data.EF.Models;
+using Domain.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF.Repositories
 {
+    public static class TasksConverters
+    {
+        public static ATask FromDomain(this TaskDetails task)
+        {
+            return new ATask
+            {
+                CategoryId = task.CategoryId,
+                Description = task.Description,
+                Id = task.Id,
+                IsCompleted = task.IsCompleted,
+                Title = task.Title,
+                UserId = task.UserId,
+            };
+        }
+        public static TaskDetails ToDomain(this ATask task)
+        {
+            return new TaskDetails {
+                CategoryId = task.CategoryId,
+                Description = task.Description,
+                Id = task.Id,
+                IsCompleted = task.IsCompleted,
+                Title = task.Title,
+                UserId = task.UserId,
+            };
+        }
+    }
+
     public class TasksRepository : ITasksRepository
     {
         private readonly ToDoListDbContext _toDoListDbContext;
@@ -14,15 +42,15 @@ namespace Data.EF.Repositories
             _dbSet = _toDoListDbContext.Set<ATask>();
         }
 
-        public async Task CreateTaskAsync(ATask task)
+        public async Task CreateTaskAsync(TaskDetails task)
         {
-            await _dbSet.AddAsync(task);
+            await _dbSet.AddAsync(task.FromDomain());
             await _toDoListDbContext.SaveChangesAsync();
         }
 
         public async Task DeleteTaskAsync(int taskId)
         {
-            var entity = await GetTaskByIdAsync(taskId);
+            var entity = await _dbSet.FindAsync(taskId);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
@@ -30,19 +58,22 @@ namespace Data.EF.Repositories
             }
         }
 
-        public async Task<IEnumerable<ATask>> GetAllTasksAsync()
+        public async Task<IEnumerable<TaskDetails>> GetAllTasksAsync()
         {
-            return await _dbSet.ToListAsync();
+            var entities = await _dbSet.ToListAsync();
+            var tasks = entities.Select(x => x.ToDomain());
+            return tasks;
         }
 
-        public async Task<ATask?> GetTaskByIdAsync(int taskId)
+        public async Task<TaskDetails?> GetTaskByIdAsync(int taskId)
         {
-            return await _dbSet.FindAsync(taskId);
+            var result = await _dbSet.FindAsync(taskId);
+            return result.ToDomain();
         }
 
-        public async Task UpdateTaskAsync(ATask task)
+        public async Task UpdateTaskAsync(TaskDetails task)
         {
-            _dbSet.Update(task);
+            _dbSet.Update(task.FromDomain());
             await _toDoListDbContext.SaveChangesAsync();
         }
     }

@@ -1,6 +1,6 @@
-﻿namespace Data.EF.Models
+﻿namespace Domain.Tasks
 {
-    public class ATask
+    public class TaskDetails
     {
         public int Id { get; set; }
 
@@ -8,13 +8,7 @@
 
         public string Description { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-
         public bool IsCompleted { get; set; } = false;
-
-        public Category? Category { get; set; }
-
-        public User User { get; set; }
 
         public int? CategoryId { get; set; }
 
