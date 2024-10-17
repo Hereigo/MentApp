@@ -34,23 +34,25 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("customerId")]
-        public async Task<IActionResult> GetTaskAsync(int taskId)
+        public async Task<IActionResult> GetTaskAsync(int taskId, CancellationToken cancellationToken)
         {
-            var taskDetails = await _mediator.Send(new GetTaskRequest() { TaskId = taskId });
+            var taskDetails = await _mediator.Send(new GetTaskRequest() { TaskId = taskId }, cancellationToken);
 
             return taskDetails as IActionResult; // ???
         }
 
         [HttpPost]
-        public async Task CreateTaskAsync(ATask task)
+        public async Task<IActionResult> CreateTaskAsync(ATask task, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new CreateTaskRequest() { Task = task });
+            await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);
+
+            return Ok(task);
         }
 
         [HttpPost("Test")]
-        public async Task CreateTaskSimpleAsync(ATaskSimpleDto taskDto)
+        public async Task<IActionResult> CreateTaskSimpleAsync(ATaskSimpleDto taskDto, CancellationToken cancellationToken)
         {
-            var currentUser = _userManager.GetUserAsync(this.User);
+            var currentUser = await _userManager.GetUserAsync(this.User);
 
             if (currentUser != null)
             {
@@ -59,11 +61,13 @@ namespace WebApi.Controllers
                     CreatedDate = DateTime.UtcNow,
                     Description = taskDto.Description,
                     Title = taskDto.Title,
-                    User = currentUser.Result
+                    User = currentUser
                 };
 
-                await _mediator.Send(new CreateTaskRequest() { Task = task });
+                await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);
             }
+
+            return Ok(taskDto);
         }
     }
 }
