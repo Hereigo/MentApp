@@ -42,7 +42,7 @@ namespace Data.EF.Repositories
         public async Task<TaskDetails?> GetTaskByIdAsync(int taskId)
         {
             var result = await _dbSet.FindAsync(taskId);
-            return result.ToDomain();
+            return result?.ToDomain();
         }
 
         public async Task UpdateTaskAsync(TaskDetails task)

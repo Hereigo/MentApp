@@ -1,5 +1,5 @@
-﻿using Contracts.Categories;
-using Contracts.Commands;
+﻿using Contracts.Commands;
+using Contracts.DTO;
 using Contracts.Queries;
 using Data.EF.Models;
 using Domain.Tasks;
@@ -38,6 +38,14 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetTaskAsync(int taskId, CancellationToken cancellationToken)
         {
             var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = taskId }, cancellationToken);
+
+            return taskDetails == null ? NotFound() : Ok(taskDetails);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllTasksAsync(CancellationToken cancellationToken)
+        {
+            var taskDetails = await _mediator.Send(new GetAllTasksQuery() { }, cancellationToken);
 
             return taskDetails == null ? NotFound() : Ok(taskDetails);
         }

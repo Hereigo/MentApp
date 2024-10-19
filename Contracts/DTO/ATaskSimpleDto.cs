@@ -1,4 +1,4 @@
-﻿namespace Contracts.Categories
+﻿namespace Contracts.DTO
 {
     public class ATaskSimpleDto
     {

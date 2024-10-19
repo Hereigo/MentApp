@@ -28,6 +28,7 @@ namespace Data.EF.Database
                 .IsRequired()
                 .HasMaxLength(100);
 
+            // User:
             builder.Entity<User>()
                 .Property(u => u.FirstName)
                 .HasMaxLength(100);
