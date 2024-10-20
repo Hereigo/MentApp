@@ -1,5 +1,11 @@
 ﻿
+Так як потрібно трекати всі GET ендпоінти є декілька варіантів, як це можна додати (пояснення їх різниці)
+https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0
+https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-8.0
+Використай для селекту конкретного каунтера (для збільшення або повернення) новий pattern matching (ресурс)
 
-Read it - https://code-maze.com/cqrs-mediatr-in-aspnet-core/
+
+Use Conventional Routing або Attribute Routing:
+https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-8.0
 
 ...

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Services.MediatR;
+using WebApi.Middlewares;
 
 const string BEARER = "Bearer";
 
@@ -60,6 +61,8 @@ builder.Services.AddIdentityCore<User>(options =>
 
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatRDependencyHandler).Assembly));
+
+builder.Services.AddSingleton<StatsService>(); // Stats Counter.
 
 var app = builder.Build();
 
