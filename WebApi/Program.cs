@@ -43,7 +43,6 @@ builder.Services.AddSwaggerGen(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();        // Add Identity services
 builder.Services.AddDbContext<ToDoListDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ToDoListDb")));
-builder.Services.AddControllers();
 builder.Services.AddIdentityApiEndpoints<User>(); // Include PreConfigured Roles
 builder.Services.AddIdentityCore<User>(options =>
 {
@@ -59,9 +58,12 @@ builder.Services.AddIdentityCore<User>(options =>
 .AddEntityFrameworkStores<ToDoListDbContext>()
 .AddApiEndpoints();
 
+// MediatR
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatRDependencyHandler).Assembly));
 
+// Stats
+builder.Services.AddControllers(options => options.Filters.Add<StatsAsyncActionFilter>()); // Stats Filter.
 builder.Services.AddSingleton<StatsService>(); // Stats Counter.
 
 var app = builder.Build();
