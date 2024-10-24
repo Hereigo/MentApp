@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Services.MediatR;
+using WebApi.Filters;
 using WebApi.Middlewares;
+using WebApi.Services;
 
 const string BEARER = "Bearer";
 
@@ -88,5 +90,7 @@ app.MapSwagger().RequireAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseStatsMiddleware();   // Stats Middleware
 
 app.Run();

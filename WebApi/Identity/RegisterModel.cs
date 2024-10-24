@@ -1,8 +1,7 @@
-﻿namespace WebApi.Identity
+﻿namespace WebApi.Identity;
+
+public class RegisterModel
 {
-    public class RegisterModel
-    {
-        public string Email { get; internal set; }
-        public string Password { get; internal set; }
-    }
+    public string Email { get; internal set; }
+    public string Password { get; internal set; }
 }
