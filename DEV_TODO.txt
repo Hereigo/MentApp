@@ -1,6 +1,7 @@
 ﻿
 
 https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-8.0
+
 Використай для селекту конкретного каунтера (для збільшення або повернення) новий pattern matching (ресурс)
 
 

@@ -20,13 +20,30 @@ public class StatsMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if (context.Request.Path.Value.Contains("Tasks"))
+        // if (context.Request.Path.Value.Contains("Tasks"))
+        // {
+        //     _statsService.IncrementStatsCounter();
+        // }
+
+        if (IsRequestMethodSuitable(context.Request))
         {
             _statsService.IncrementStatsCounter();
         }
 
         // Call the next delegate/middleware in the pipeline.
         await _next(context);
+    }
+
+    private bool IsRequestMethodSuitable(HttpRequest request)
+    {
+        return request.Method switch
+        {
+            "GET" => true,
+            "POST" => true,
+            "PUT" => false,
+            "DELETE" => false,
+            _ => false
+        };
     }
 }
 
