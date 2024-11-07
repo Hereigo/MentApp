@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Services.MediatR;
+using WebApi.ApiModels;
 using WebApi.Filters;
 using WebApi.Middlewares;
 using WebApi.Services;
@@ -59,6 +60,9 @@ builder.Services.AddIdentityCore<User>(options =>
 })
 .AddEntityFrameworkStores<ToDoListDbContext>()
 .AddApiEndpoints();
+
+// Configure IOptions
+builder.Services.Configure<ConfigItems>(builder.Configuration.GetSection(ConfigItems.SectionItems));
 
 // MediatR
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
