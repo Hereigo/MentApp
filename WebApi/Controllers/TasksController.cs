@@ -2,7 +2,7 @@
 using Contracts.DTO;
 using Contracts.Queries;
 using Data.EF.Models;
-using Domain.Tasks;
+using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -70,7 +70,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost("Test")]
-    public async Task<IActionResult> CreateTaskSimpleAsync(ATaskSimpleDto taskDto, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateTaskSimpleAsync(ATaskApiDto taskDto, CancellationToken cancellationToken)
     {
         var currentUser = await _userManager.GetUserAsync(this.User);
 

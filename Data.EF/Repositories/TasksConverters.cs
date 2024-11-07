@@ -1,5 +1,5 @@
 ﻿using Data.EF.Models;
-using Domain.Tasks;
+using Domain;
 
 namespace Data.EF.Repositories
 {

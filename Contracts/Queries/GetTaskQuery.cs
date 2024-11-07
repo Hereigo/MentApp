@@ -1,4 +1,4 @@
-﻿using Domain.Tasks;
+﻿using Domain;
 using MediatR;
 
 namespace Contracts.Queries

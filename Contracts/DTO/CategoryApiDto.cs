@@ -1,6 +1,6 @@
 ﻿namespace Contracts.DTO
 {
-    public class CategorySimpleDto
+    public class CategoryApiDto
     {
         public string Name { get; set; }
     }

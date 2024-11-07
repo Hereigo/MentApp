@@ -5,26 +5,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF.Repositories
 {
-    public class TasksRepository : ITasksRepository
+    internal class CategoriesRepository : ICategoriesRepository
     {
         private readonly ToDoListDbContext _toDoListDbContext;
-        private readonly DbSet<ATask> _dbSet;
+        private readonly DbSet<Category> _dbSet;
 
-        public TasksRepository(ToDoListDbContext toDoListDbContext)
+        public CategoriesRepository(ToDoListDbContext toDoListDbContext)
         {
             _toDoListDbContext = toDoListDbContext;
-            _dbSet = _toDoListDbContext.Set<ATask>();
+            _dbSet = _toDoListDbContext.Set<Category>();
         }
 
-        public async Task CreateTaskAsync(TaskDetails task)
+        public async Task CreateCategoryAsync(CategoryDetails category)
         {
-            await _dbSet.AddAsync(task.FromDomain());
+            await _dbSet.AddAsync(category.FromDomain());
             await _toDoListDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteTaskAsync(int taskId)
+        public async Task DeleteCategoryAsync(int id)
         {
-            var entity = await _dbSet.FindAsync(taskId);
+            var entity = await _dbSet.FindAsync(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
@@ -32,22 +32,22 @@ namespace Data.EF.Repositories
             }
         }
 
-        public async Task<IEnumerable<TaskDetails>> GetAllTasksAsync()
+        public async Task<IEnumerable<CategoryDetails>> GetAllCategoriesAsync()
         {
             var entities = await _dbSet.ToListAsync();
             var tasks = entities.Select(x => x.ToDomain());
             return tasks;
         }
 
-        public async Task<TaskDetails?> GetTaskByIdAsync(int taskId)
+        public async Task<CategoryDetails> GetCategoryByIdAsync(int id)
         {
-            var result = await _dbSet.FindAsync(taskId);
+            var result = await _dbSet.FindAsync(id);
             return result?.ToDomain();
         }
 
-        public async Task UpdateTaskAsync(TaskDetails task)
+        public async Task UpdateCategoryAsync(CategoryDetails category)
         {
-            _dbSet.Update(task.FromDomain());
+            _dbSet.Update(category.FromDomain());
             await _toDoListDbContext.SaveChangesAsync();
         }
     }

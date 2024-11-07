@@ -1,6 +1,6 @@
 ﻿using Contracts.Queries;
 using Data.EF.Repositories;
-using Domain.Tasks;
+using Domain;
 using MediatR;
 
 namespace Services.MediatR.Queries

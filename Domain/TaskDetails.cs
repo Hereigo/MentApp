@@ -1,4 +1,4 @@
-﻿namespace Domain.Tasks
+﻿namespace Domain
 {
     public class TaskDetails
     {

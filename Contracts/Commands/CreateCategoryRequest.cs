@@ -5,6 +5,6 @@ namespace Contracts.Commands
 {
     public class CreateCategoryRequest : IRequest
     {
-        public CategorySimpleDto Category { get; set; }
+        public CategoryApiDto Category { get; set; }
     }
 }
