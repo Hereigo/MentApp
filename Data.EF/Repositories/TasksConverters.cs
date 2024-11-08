@@ -10,6 +10,7 @@ namespace Data.EF.Repositories
             return new ATask
             {
                 CategoryId = task.CategoryId,
+                CreatedDate = task.CreatedDate,
                 Description = task.Description,
                 Id = task.Id,
                 IsCompleted = task.IsCompleted,
@@ -21,6 +22,7 @@ namespace Data.EF.Repositories
         {
             return new TaskDetails {
                 CategoryId = task.CategoryId,
+                CreatedDate = task.CreatedDate,
                 Description = task.Description,
                 Id = task.Id,
                 IsCompleted = task.IsCompleted,
