@@ -1,10 +1,10 @@
-﻿using Contracts.DTO;
+﻿using Domain;
 using MediatR;
 
 namespace Contracts.Commands
 {
     public class CreateCategoryRequest : IRequest
     {
-        public CategoryApiDto Category { get; set; }
+        public CategoryDetails Category { get; set; }
     }
 }

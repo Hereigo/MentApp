@@ -66,6 +66,7 @@ builder.Services.Configure<ConfigItems>(builder.Configuration.GetSection(ConfigI
 
 // MediatR
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatRDependencyHandler).Assembly));
 
 // Stats

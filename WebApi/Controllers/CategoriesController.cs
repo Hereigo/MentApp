@@ -14,7 +14,7 @@ namespace WebApi.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class TasksController : ControllerBase
+public class CategoriesController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly IMediator _mediator;
@@ -22,7 +22,7 @@ public class TasksController : ControllerBase
     private readonly StatsService _statsService;
     private readonly UserManager<User> _userManager;
 
-    public TasksController(IMediator mediator, UserManager<User> userManager,
+    public CategoriesController(IMediator mediator, UserManager<User> userManager,
             SignInManager<User> signInManager, IConfiguration configuration, StatsService statsService)
     {
         _configuration = configuration;
@@ -32,50 +32,20 @@ public class TasksController : ControllerBase
         _userManager = userManager;
     }
 
-    [HttpGet]
-    public IActionResult Index()
-    {
-        _statsService.IncrementStatsCounter();
-        return Ok("This is a protected resource.");
-    }
-
-    [HttpGet("GetCounter")]
-    public IActionResult GetCounter()
-    {
-        return Ok(_statsService.GetStatsCounter());
-    }
-
-    [HttpGet("customerId")]
-    public async Task<IActionResult> GetTaskAsync(int taskId, CancellationToken cancellationToken)
-    {
-        var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = taskId }, cancellationToken);
-        return taskDetails == null ? NotFound() : Ok(taskDetails);
-    }
-
     [HttpGet("all")]
-    public async Task<IActionResult> GetAllTasksAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllCategorieAsync(CancellationToken cancellationToken)
     {
-        var taskDetails = await _mediator.Send(new GetAllTasksQuery() { }, cancellationToken);
-        return taskDetails == null ? NotFound() : Ok(taskDetails);
+        var allCategories = await _mediator.Send(new GetAllCategoriesQuery() { }, cancellationToken);
+        return allCategories == null ? NotFound() : Ok(allCategories);
     }
 
-    [HttpPost("Test")]
-    public async Task<IActionResult> CreateTaskSimpleAsync(ATaskApiDto taskDto, CancellationToken cancellationToken)
+    [HttpPost("new")]
+    public async Task<IActionResult> CreateCategorieAsync(CategoryApiDto category, CancellationToken cancellationToken)
     {
-        var currentUser = await _userManager.GetUserAsync(this.User);
-        if (currentUser != null)
-        {
-            var task = new TaskDetails
-            {
-                CategoryId = 1,
-                CreatedDate = DateTime.UtcNow,
-                Description = taskDto.Description,
-                Title = taskDto.Title,
-                UserId = currentUser.Id,
-            };
+        var newCategory = new CategoryDetails { Name = category.Name };
 
-            await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);
-        }
-        return Ok(taskDto);
+        await _mediator.Send(new CreateCategoryRequest() { Category = newCategory }, cancellationToken);
+
+        return Ok(category);
     }
 }

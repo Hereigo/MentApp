@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF.Repositories
 {
-    internal class CategoriesRepository : ICategoriesRepository
+    public class CategoriesRepository : ICategoriesRepository
     {
         private readonly ToDoListDbContext _toDoListDbContext;
         private readonly DbSet<Category> _dbSet;
