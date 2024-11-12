@@ -34,6 +34,7 @@ public class TasksController : ControllerBase
         return Ok("This is a protected resource.");
     }
 
+    [Authorize(Roles = "SuperAdmin")]
     [HttpGet("GetCounter")]
     public IActionResult GetCounter()
     {
@@ -50,6 +51,13 @@ public class TasksController : ControllerBase
     [HttpGet("all")]
     public async Task<IActionResult> GetAllTasksAsync(CancellationToken cancellationToken)
     {
+        // TEST
+        var currentUser = await _userManager.GetUserAsync(this.User);
+
+        var isSuperAdmin = await _userManager.IsInRoleAsync(currentUser, "SuperAdmin");
+
+
+
         var allTasks = await _mediator.Send(new GetAllTasksQuery() { }, cancellationToken);
         return allTasks == null ? NotFound() : Ok(allTasks);
     }

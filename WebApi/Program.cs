@@ -58,8 +58,9 @@ builder.Services.AddIdentityCore<User>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireLowercase = true;
 })
-.AddEntityFrameworkStores<ToDoListDbContext>()
-.AddApiEndpoints();
+  .AddRoles<IdentityRole>()
+  .AddEntityFrameworkStores<ToDoListDbContext>()
+  .AddApiEndpoints();
 
 // Configure IOptions
 builder.Services.Configure<ConfigItems>(builder.Configuration.GetSection(ConfigItems.SectionItems));
