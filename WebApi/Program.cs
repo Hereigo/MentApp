@@ -44,8 +44,9 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAuthorization();        // Add Identity services
 builder.Services.AddDbContext<ToDoListDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ToDoListDb")));
+
+builder.Services.AddAuthorization();              // Add Identity services
 builder.Services.AddIdentityApiEndpoints<User>(); // Include PreConfigured Roles
 builder.Services.AddIdentityCore<User>(options =>
 {
