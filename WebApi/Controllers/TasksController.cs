@@ -35,16 +35,16 @@ public class TasksController : ControllerBase
     }
 
     [Authorize(Roles = "SuperAdmin")]
-    [HttpGet("GetCounter")]
+    [HttpGet("counter-view")]
     public IActionResult GetCounter()
     {
         return Ok(_statsService.GetStatsCounter());
     }
 
-    [HttpGet("customerId")]
-    public async Task<IActionResult> GetTaskAsync(int taskId, CancellationToken cancellationToken)
+    [HttpGet("id")]
+    public async Task<IActionResult> GetTaskAsync(int id, CancellationToken cancellationToken)
     {
-        var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = taskId }, cancellationToken);
+        var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = id }, cancellationToken);
         return taskDetails == null ? NotFound() : Ok(taskDetails);
     }
 

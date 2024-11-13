@@ -67,8 +67,9 @@ builder.Services.AddIdentityCore<User>(options =>
 builder.Services.Configure<ConfigItems>(builder.Configuration.GetSection(ConfigItems.SectionItems));
 
 // MediatR
-builder.Services.AddScoped<ITasksRepository, TasksRepository>();
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatRDependencyHandler).Assembly));
 
 // Stats
