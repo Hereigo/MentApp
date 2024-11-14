@@ -1,13 +1,15 @@
 ﻿using Contracts.Queries;
 using Data.EF.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;

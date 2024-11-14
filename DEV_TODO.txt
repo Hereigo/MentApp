@@ -4,14 +4,6 @@ Ctrl => MediatR => Command\Query => Handler => Repository => dbContext
 
 --------------------------------------------------------------------------
 
-https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-8.0
-
-Використай для селекту конкретного каунтера (для збільшення або повернення) новий pattern matching (ресурс)
-
-
-Add Middleware fot Stats using Patter-Matching condition...
-
-
 Use Conventional Routing або Attribute Routing:
 https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-8.0
 
