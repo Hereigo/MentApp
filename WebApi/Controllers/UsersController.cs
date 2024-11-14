@@ -1,8 +1,5 @@
-﻿using Contracts.Commands;
-using Contracts.DTO;
-using Contracts.Queries;
+﻿using Contracts.Queries;
 using Data.EF.Models;
-using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

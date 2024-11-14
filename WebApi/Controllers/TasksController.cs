@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Services;
 
 namespace WebApi.Controllers;
 
@@ -17,28 +16,12 @@ namespace WebApi.Controllers;
 public class TasksController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly StatsService _statsService;
     private readonly UserManager<User> _userManager;
 
-    public TasksController(IMediator mediator, UserManager<User> userManager, StatsService statsService)
+    public TasksController(IMediator mediator, UserManager<User> userManager)
     {
         _mediator = mediator;
-        _statsService = statsService;
         _userManager = userManager;
-    }
-
-    [HttpGet]
-    public IActionResult Index()
-    {
-        _statsService.IncrementStatsCounter();
-        return Ok("This is a protected resource.");
-    }
-
-    [HttpGet("id")]
-    public async Task<IActionResult> GetTaskAsync(int id, CancellationToken cancellationToken)
-    {
-        var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = id }, cancellationToken);
-        return taskDetails == null ? NotFound() : Ok(taskDetails);
     }
 
     [HttpGet]
@@ -50,6 +33,13 @@ public class TasksController : ControllerBase
 
         var allTasks = await _mediator.Send(new GetAllTasksQuery() { }, cancellationToken);
         return allTasks == null ? NotFound() : Ok(allTasks);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTaskAsync(int id, CancellationToken cancellationToken)
+    {
+        var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = id }, cancellationToken);
+        return taskDetails == null ? NotFound() : Ok(taskDetails);
     }
 
     [HttpPost]
