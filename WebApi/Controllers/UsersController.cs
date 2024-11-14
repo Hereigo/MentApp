@@ -1,5 +1,8 @@
-﻿using Contracts.Queries;
+﻿using Contracts.Commands;
+using Contracts.DTO;
+using Contracts.Queries;
 using Data.EF.Models;
+using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +30,7 @@ namespace WebApi.Controllers
             return "value";
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<IActionResult> GetAllUsersAsync(CancellationToken cancellationToken)
         {
             var allUsers = await _mediator.Send(new GetAllUsersQuery() { }, cancellationToken);

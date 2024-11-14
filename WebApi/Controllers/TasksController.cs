@@ -41,7 +41,7 @@ public class TasksController : ControllerBase
         return taskDetails == null ? NotFound() : Ok(taskDetails);
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<IActionResult> GetAllTasksAsync(CancellationToken cancellationToken)
     {
         // Just Testing usersRoles:
@@ -52,7 +52,7 @@ public class TasksController : ControllerBase
         return allTasks == null ? NotFound() : Ok(allTasks);
     }
 
-    [HttpPost("new")]
+    [HttpPost]
     public async Task<IActionResult> CreateTaskSimpleAsync(TaskApiDto taskDto, CancellationToken cancellationToken)
     {
         var currentUser = await _userManager.GetUserAsync(this.User);

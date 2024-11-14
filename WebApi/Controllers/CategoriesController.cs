@@ -20,14 +20,14 @@ public class CategoriesController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<IActionResult> GetAllCategorieAsync(CancellationToken cancellationToken)
     {
         var allCategories = await _mediator.Send(new GetAllCategoriesQuery() { }, cancellationToken);
         return allCategories == null ? NotFound() : Ok(allCategories);
     }
 
-    [HttpPost("new")]
+    [HttpPost]
     public async Task<IActionResult> CreateCategorieAsync(CategoryApiDto category, CancellationToken cancellationToken)
     {
         var newCategory = new CategoryDetails { Name = category.Name };
