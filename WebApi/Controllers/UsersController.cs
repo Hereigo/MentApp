@@ -1,8 +1,6 @@
 ﻿using Contracts.Queries;
-using Data.EF.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -13,12 +11,10 @@ namespace WebApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<User> _userManager;
 
-        public UsersController(IMediator mediator, UserManager<User> userManager)
+        public UsersController(IMediator mediator)
         {
             _mediator = mediator;
-            _userManager = userManager;
         }
 
         [HttpGet("{id}")]
@@ -32,21 +28,6 @@ namespace WebApi.Controllers
         {
             var allUsers = await _mediator.Send(new GetAllUsersQuery() { }, cancellationToken);
             return allUsers == null ? NotFound() : Ok(allUsers);
-        }
-
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
