@@ -3,8 +3,5 @@ using MediatR;
 
 namespace Contracts.Commands
 {
-    public class CreateTaskRequest : IRequest
-    {
-        public TaskDetails Task { get; set; }
-    }
+    public record CreateTaskRequest(TaskDetails Task) : IRequest;
 }

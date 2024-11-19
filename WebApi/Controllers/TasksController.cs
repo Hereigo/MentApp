@@ -38,7 +38,7 @@ public class TasksController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetTaskAsync(int id, CancellationToken cancellationToken)
     {
-        var taskDetails = await _mediator.Send(new GetTaskQuery() { TaskId = id }, cancellationToken);
+        var taskDetails = await _mediator.Send(new GetTaskQuery(id), cancellationToken);
         return taskDetails == null ? NotFound() : Ok(taskDetails);
     }
 
@@ -57,7 +57,7 @@ public class TasksController : ControllerBase
                 UserId = currentUser.Id,
             };
 
-            await _mediator.Send(new CreateTaskRequest() { Task = task }, cancellationToken);
+            await _mediator.Send(new CreateTaskRequest(task), cancellationToken);
         }
         return Ok(taskDto);
     }

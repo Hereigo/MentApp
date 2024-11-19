@@ -20,6 +20,7 @@ public class CategoriesController : ControllerBase
         _mediator = mediator;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAllCategorieAsync(CancellationToken cancellationToken)
     {
@@ -32,7 +33,7 @@ public class CategoriesController : ControllerBase
     {
         var newCategory = new CategoryDetails { Name = category.Name };
 
-        await _mediator.Send(new CreateCategoryRequest() { Category = newCategory }, cancellationToken);
+        await _mediator.Send(new CreateCategoryRequest(newCategory), cancellationToken);
 
         return Ok(category);
     }

@@ -3,7 +3,5 @@ using MediatR;
 
 namespace Contracts.Queries
 {
-    public class GetAllCategoriesQuery : IRequest<IEnumerable<CategoryDetails>>
-    {
-    }
+    public record GetAllCategoriesQuery : IRequest<IEnumerable<CategoryDetails>>;
 }

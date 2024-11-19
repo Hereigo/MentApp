@@ -3,8 +3,5 @@ using MediatR;
 
 namespace Contracts.Commands
 {
-    public class CreateCategoryRequest : IRequest
-    {
-        public CategoryDetails Category { get; set; }
-    }
+    public record CreateCategoryRequest(CategoryDetails Category) : IRequest;
 }

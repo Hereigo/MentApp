@@ -8,4 +8,14 @@ Use Conventional Routing або Attribute Routing:
 https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-8.0
 
 
+Model Binding
+https://learn.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-8.0
+
+
+The managed thread pool
+https://learn.microsoft.com/en-us/dotnet/standard/threading/the-managed-thread-pool
+
+
+
+
 ...
