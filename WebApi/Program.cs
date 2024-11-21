@@ -88,9 +88,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-//app.MapIdentityApi<User>(); // Map Identity routes
 app.MapGroup("/auth").MapIdentityApi<User>();
 app.MapControllers();
 app.MapSwagger().RequireAuthorization();
