@@ -8,46 +8,66 @@ namespace Data.EF.Repositories
     public class TasksRepository : ITasksRepository
     {
         private readonly ToDoListDbContext _toDoListDbContext;
-        private readonly DbSet<ATask> _dbSet;
+        private readonly DbSet<ATask> _tasksDbSet;
+        private readonly DbSet<User> _usersDbSet;
 
         public TasksRepository(ToDoListDbContext toDoListDbContext)
         {
             _toDoListDbContext = toDoListDbContext;
-            _dbSet = _toDoListDbContext.Set<ATask>();
+            _tasksDbSet = _toDoListDbContext.Set<ATask>();
+            _usersDbSet = _toDoListDbContext.Set<User>();
         }
 
         public async Task CreateTaskAsync(TaskDetails task, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(task.FromDomain());
+            using var TRANSACTION = _toDoListDbContext.Database.BeginTransaction();
+
+            await _tasksDbSet.AddAsync(task.FromDomain());
             await _toDoListDbContext.SaveChangesAsync(cancellationToken);
+
+            var currentUser = _usersDbSet.FirstOrDefault(u => u.Id == task.UserId);
+            currentUser.TasksCount++;
+            _usersDbSet.Update(currentUser);
+            await _toDoListDbContext.SaveChangesAsync(cancellationToken);
+
+            TRANSACTION.Commit();
         }
 
-        public async Task DeleteTaskAsync(int taskId, CancellationToken cancellationToken)
+        public async Task DeleteTaskAsync(int taskId, string userId, CancellationToken cancellationToken)
         {
-            var entity = await _dbSet.FindAsync(taskId, cancellationToken);
+            var entity = await _tasksDbSet.FindAsync(taskId, cancellationToken);
             if (entity != null)
             {
-                _dbSet.Remove(entity);
+                using var TRANSACTION = _toDoListDbContext.Database.BeginTransaction();
+
+                _tasksDbSet.Remove(entity);
                 await _toDoListDbContext.SaveChangesAsync(cancellationToken);
+
+                var currentUser = _usersDbSet.FirstOrDefault(u => u.Id == userId);
+                currentUser.TasksCount++;
+                _usersDbSet.Update(currentUser);
+                await _toDoListDbContext.SaveChangesAsync(cancellationToken);
+
+                TRANSACTION.Commit();
             }
         }
 
         public async Task<IEnumerable<TaskDetails>> GetAllTasksAsync(CancellationToken cancellationToken)
         {
-            var entities = await _dbSet.ToListAsync(cancellationToken);
+            var entities = await _tasksDbSet.ToListAsync(cancellationToken);
             var tasks = entities.Select(x => x.ToDomain());
             return tasks;
         }
 
         public async Task<TaskDetails?> GetTaskByIdAsync(int taskId, CancellationToken cancellationToken)
         {
-            var result = await _dbSet.FindAsync(taskId, cancellationToken);
+            var result = await _tasksDbSet.FindAsync(taskId, cancellationToken);
             return result?.ToDomain();
         }
 
         public async Task UpdateTaskAsync(TaskDetails task, CancellationToken cancellationToken)
         {
-            _dbSet.Update(task.FromDomain());
+            _tasksDbSet.Update(task.FromDomain());
             await _toDoListDbContext.SaveChangesAsync(cancellationToken);
         }
     }
