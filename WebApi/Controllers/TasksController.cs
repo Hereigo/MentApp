@@ -45,25 +45,21 @@ public class TasksController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateTaskSimpleAsync(TaskApiDto taskDto, CancellationToken cancellationToken)
     {
-        if (ModelState.IsValid)
-        {
-            var currentUser = await _userManager.GetUserAsync(this.User);
-            if (currentUser != null)
-            {
-                var task = new TaskDetails
-                {
-                    CategoryId = 1,
-                    CreatedDate = DateTime.UtcNow,
-                    Description = taskDto.Description,
-                    Title = taskDto.Title,
-                    UserId = currentUser.Id,
-                };
+        var currentUser = await _userManager.GetUserAsync(this.User);
 
-                await _mediator.Send(new CreateTaskRequest(task), cancellationToken);
-            }
-            return Ok(taskDto);
+        if (currentUser != null)
+        {
+            var task = new TaskDetails
+            {
+                CategoryId = 1,
+                CreatedDate = DateTime.UtcNow,
+                Description = taskDto.Description,
+                Title = taskDto.Title,
+                UserId = currentUser.Id,
+            };
+
+            await _mediator.Send(new CreateTaskRequest(task), cancellationToken);
         }
-        else
-            return BadRequest(ModelState);
+        return Ok(taskDto);
     }
 }

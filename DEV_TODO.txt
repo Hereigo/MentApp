@@ -13,44 +13,10 @@ https://learn.microsoft.com/en-us/dotnet/standard/threading/the-managed-thread-p
     QUESTIONS :
 
 -------------------------------------------------------------------------------------------
-1. What is better  - "FluentValidation" or "Built-in validation"? Why?
-
 -------------------------------------------------------------------------------------------
-2. Why inject Cancellation Token into EF? What are Disadvanrages?
-
 -------------------------------------------------------------------------------------------
-3. Is this code not overhelmed (using for EVERY action)?
-
-    if (ModelState.IsValid)
-    {
-        // ...
-    }
-    else
-        return BadRequest(ModelState);
-
--------------------------------------------------------------------------------------------
-4. Is this Filter necessary to use DataAnnotations?
-
-    public class ValidateModelAttribute : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(HttpActionContext actionContext)
-        {
-            if (actionContext.ModelState.IsValid == false)
-            {
-                actionContext.Response = actionContext.Request.CreateErrorResponse(
-                    HttpStatusCode.BadRequest, actionContext.ModelState);
-            }
-        }
-    }
 
 -------------------------------------------------------------------------------------------
 5. How to update User properly - by using "Repository" or "Identity.UserManager"? Why?
 
 -------------------------------------------------------------------------------------------
-6. Why use:
-            public IAsyncResult Post([FromBody] string name, ...) { ... }
-   but not:
-            public IAsyncResult Post(UserModelDto user, ...) { ... } 
-
--------------------------------------------------------------------------------------------
-7. ...

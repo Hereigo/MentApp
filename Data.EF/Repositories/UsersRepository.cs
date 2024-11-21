@@ -18,7 +18,7 @@ namespace Data.EF.Repositories
 
         public async Task<IEnumerable<UserDetails>> GetAllUsersAsync(CancellationToken cancellationToken)
         {
-            var dbUsers = await _dbSet.ToListAsync();
+            var dbUsers = await _dbSet.ToListAsync(cancellationToken);
             var domainUsers = dbUsers.Select(x => x.ToDomain());
             return domainUsers;
         }

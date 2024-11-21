@@ -18,37 +18,37 @@ namespace Data.EF.Repositories
 
         public async Task CreateCategoryAsync(CategoryDetails category, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(category.FromDomain());
-            await _toDoListDbContext.SaveChangesAsync();
+            await _dbSet.AddAsync(category.FromDomain(), cancellationToken);
+            await _toDoListDbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteCategoryAsync(int id, CancellationToken cancellationToken)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity = await _dbSet.FindAsync(id, cancellationToken);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                await _toDoListDbContext.SaveChangesAsync();
+                await _toDoListDbContext.SaveChangesAsync(cancellationToken);
             }
         }
 
         public async Task<IEnumerable<CategoryDetails>> GetAllCategoriesAsync(CancellationToken cancellationToken)
         {
-            var entities = await _dbSet.ToListAsync();
+            var entities = await _dbSet.ToListAsync(cancellationToken);
             var tasks = entities.Select(x => x.ToDomain());
             return tasks;
         }
 
         public async Task<CategoryDetails> GetCategoryByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var result = await _dbSet.FindAsync(id);
+            var result = await _dbSet.FindAsync(id, cancellationToken);
             return result?.ToDomain();
         }
 
         public async Task UpdateCategoryAsync(CategoryDetails category, CancellationToken cancellationToken)
         {
             _dbSet.Update(category.FromDomain());
-            await _toDoListDbContext.SaveChangesAsync();
+            await _toDoListDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

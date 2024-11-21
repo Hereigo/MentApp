@@ -1,5 +1,4 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 using Data.EF.Models;
@@ -28,37 +27,27 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterModel model, CancellationToken cancellationToken)
     {
-        if (ModelState.IsValid)
-        {
-            var user = new User { UserName = model.Email, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
+        var user = new User { UserName = model.Email, Email = model.Email };
+        var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return BadRequest(result.Errors);
+        if (result.Succeeded)
+        {
+            return Ok();
         }
-        else
-            return BadRequest(ModelState);
+        return BadRequest(result.Errors);
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model, CancellationToken cancellationToken)
     {
-        if (ModelState.IsValid)
-        {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
-            if (result.Succeeded)
-            {
-                var token = GenerateJwtToken(model.Email);
-                return Ok(new { Token = token });
-            }
-            return Unauthorized();
+        if (result.Succeeded)
+        {
+            var token = GenerateJwtToken(model.Email);
+            return Ok(new { Token = token });
         }
-        else
-            return BadRequest(ModelState);
+        return Unauthorized();
     }
 
     private string GenerateJwtToken(string email)
