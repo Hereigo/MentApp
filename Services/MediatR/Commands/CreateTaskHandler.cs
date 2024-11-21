@@ -17,7 +17,7 @@ namespace Services.MediatR.Commands
         public async Task Handle(CreateTaskRequest request, CancellationToken cancellationToken)
         {
             // First validate the request
-            await _tasksRepository.CreateTaskAsync(request.Task);
+            await _tasksRepository.CreateTaskAsync(request.Task, cancellationToken);
         }
     }
 }

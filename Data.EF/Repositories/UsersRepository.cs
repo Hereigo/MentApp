@@ -16,11 +16,11 @@ namespace Data.EF.Repositories
             _dbSet = _toDoListDbContext.Set<User>();
         }
 
-        public async Task<IEnumerable<UserDetails>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDetails>> GetAllUsersAsync(CancellationToken cancellationToken)
         {
-            var entities = await _dbSet.ToListAsync();
-            var tasks = entities.Select(x => x.ToDomain());
-            return tasks;
+            var dbUsers = await _dbSet.ToListAsync();
+            var domainUsers = dbUsers.Select(x => x.ToDomain());
+            return domainUsers;
         }
     }
 }

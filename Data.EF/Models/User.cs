@@ -13,4 +13,6 @@ public class User : IdentityUser
     public string Email { get; set; }
 
     public ICollection<ATask> Tasks { get; set; }
+
+    public int TasksCount { get; set; }
 }

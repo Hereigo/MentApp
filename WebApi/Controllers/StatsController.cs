@@ -17,7 +17,7 @@ public class StatsController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Index(CancellationToken cancellationToken)
     {
         return Ok(_statsService.GetStatsCounter());
     }

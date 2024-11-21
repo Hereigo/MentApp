@@ -31,10 +31,13 @@ public class CategoriesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateCategorieAsync(CategoryApiDto category, CancellationToken cancellationToken)
     {
-        var newCategory = new CategoryDetails { Name = category.Name };
-
-        await _mediator.Send(new CreateCategoryRequest(newCategory), cancellationToken);
-
-        return Ok(category);
+        if (ModelState.IsValid)
+        {
+            var newCategory = new CategoryDetails { Name = category.Name };
+            await _mediator.Send(new CreateCategoryRequest(newCategory), cancellationToken);
+            return Ok(category);
+        }
+        else
+            return BadRequest(ModelState);
     }
 }

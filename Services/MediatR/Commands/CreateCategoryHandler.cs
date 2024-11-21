@@ -15,7 +15,7 @@ namespace Services.MediatR.Commands
 
         public async Task Handle(CreateCategoryRequest request, CancellationToken cancellationToken)
         {
-            await _categoriesRepository.CreateCategoryAsync(request.Category);
+            await _categoriesRepository.CreateCategoryAsync(request.Category, cancellationToken);
         }
     }
 }

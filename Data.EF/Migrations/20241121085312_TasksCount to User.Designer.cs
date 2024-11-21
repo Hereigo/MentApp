@@ -3,6 +3,7 @@ using System;
 using Data.EF.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.EF.Migrations
 {
     [DbContext(typeof(ToDoListDbContext))]
-    partial class ToDoListDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241121085312_TasksCount to User")]
+    partial class TasksCounttoUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");

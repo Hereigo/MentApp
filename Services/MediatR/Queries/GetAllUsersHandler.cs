@@ -16,7 +16,7 @@ namespace Services.MediatR.Queries
 
         public async Task<IEnumerable<UserDetails>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            return await _usersRepository.GetAllUsersAsync();
+            return await _usersRepository.GetAllUsersAsync(cancellationToken);
         }
     }
 }

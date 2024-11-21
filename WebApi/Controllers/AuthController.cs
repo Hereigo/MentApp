@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using Data.EF.Models;
@@ -25,31 +26,39 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterModel model)
+    public async Task<IActionResult> Register([FromBody] RegisterModel model, CancellationToken cancellationToken)
     {
-        var user = new User { UserName = model.Email, Email = model.Email };
-        var result = await _userManager.CreateAsync(user, model.Password);
-
-        if (result.Succeeded)
+        if (ModelState.IsValid)
         {
-            return Ok();
-        }
+            var user = new User { UserName = model.Email, Email = model.Email };
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-        return BadRequest(result.Errors);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return BadRequest(result.Errors);
+        }
+        else
+            return BadRequest(ModelState);
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginModel model)
+    public async Task<IActionResult> Login([FromBody] LoginModel model, CancellationToken cancellationToken)
     {
-        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-        if (result.Succeeded)
+        if (ModelState.IsValid)
         {
-            var token = GenerateJwtToken(model.Email);
-            return Ok(new { Token = token });
-        }
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
-        return Unauthorized();
+            if (result.Succeeded)
+            {
+                var token = GenerateJwtToken(model.Email);
+                return Ok(new { Token = token });
+            }
+            return Unauthorized();
+        }
+        else
+            return BadRequest(ModelState);
     }
 
     private string GenerateJwtToken(string email)
