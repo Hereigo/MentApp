@@ -1,6 +1,4 @@
 ﻿
-Ctrl => MediatR => Command\Query => Handler => Repository => dbContext
-
 Use Conventional Routing або Attribute Routing:
 https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-8.0
 
