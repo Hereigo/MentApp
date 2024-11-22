@@ -21,16 +21,23 @@ namespace Data.EF.Repositories
         public async Task CreateTaskAsync(TaskDetails task, CancellationToken cancellationToken)
         {
             using var TRANSACTION = _toDoListDbContext.Database.BeginTransaction();
+            try
+            {
+                await _tasksDbSet.AddAsync(task.FromDomain());
+                await _toDoListDbContext.SaveChangesAsync(cancellationToken);
 
-            await _tasksDbSet.AddAsync(task.FromDomain());
-            await _toDoListDbContext.SaveChangesAsync(cancellationToken);
+                var currentUser = _usersDbSet.FirstOrDefault(u => u.Id == task.UserId);
+                currentUser.TasksCount++;
+                _usersDbSet.Update(currentUser);
+                await _toDoListDbContext.SaveChangesAsync(cancellationToken);
 
-            var currentUser = _usersDbSet.FirstOrDefault(u => u.Id == task.UserId);
-            currentUser.TasksCount++;
-            _usersDbSet.Update(currentUser);
-            await _toDoListDbContext.SaveChangesAsync(cancellationToken);
-
-            TRANSACTION.Commit();
+                TRANSACTION.Commit();
+            }
+            catch (Exception)
+            {
+                TRANSACTION.Rollback();
+                throw;
+            }
         }
 
         public async Task DeleteTaskAsync(int taskId, string userId, CancellationToken cancellationToken)
@@ -39,16 +46,23 @@ namespace Data.EF.Repositories
             if (entity != null)
             {
                 using var TRANSACTION = _toDoListDbContext.Database.BeginTransaction();
+                try
+                {
+                    _tasksDbSet.Remove(entity);
+                    await _toDoListDbContext.SaveChangesAsync(cancellationToken);
 
-                _tasksDbSet.Remove(entity);
-                await _toDoListDbContext.SaveChangesAsync(cancellationToken);
+                    var currentUser = _usersDbSet.FirstOrDefault(u => u.Id == userId);
+                    currentUser.TasksCount--;
+                    _usersDbSet.Update(currentUser);
+                    await _toDoListDbContext.SaveChangesAsync(cancellationToken);
 
-                var currentUser = _usersDbSet.FirstOrDefault(u => u.Id == userId);
-                currentUser.TasksCount++;
-                _usersDbSet.Update(currentUser);
-                await _toDoListDbContext.SaveChangesAsync(cancellationToken);
-
-                TRANSACTION.Commit();
+                    TRANSACTION.Commit();
+                }
+                catch (Exception)
+                {
+                    TRANSACTION.Rollback();
+                    throw;
+                }
             }
         }
 
